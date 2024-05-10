@@ -1,14 +1,27 @@
-/* This is the Cafe class */
+
 import java.util.*;
 
-public class Cafe extends Building{ //establishes cafe as a child of parent class building
+/*
+ * Cafe class extends Building class and contains information about cafe operations
+ */
+public class Cafe extends Building{ 
     private int nCoffeeOunces; // The number of ounces of coffee remaining in inventory
     private int nSugarPackets; // The number of sugar packets remaining in inventory
     private int nCreams; // The number of "splashes" of cream remaining in inventory
     private int nCups; // The number of cups remaining in inventory
     static Scanner scanner = new Scanner(System.in); //initializes scanner for user input
 
-    public Cafe(String name, String address, int nFloors, int nCoffeeOunces, int nSugarPackets, int nCreams, int nCups) { //establishes cafe using attributes from parent class and specific cafe attributes
+    /*
+     * Constructs a cafe
+     * @param String name: the name of the cafe
+     * @param String address: the address of the cafe
+     * @param int nFloors: the number of floors the cafe has
+     * @param int nCoffeeOunces: the number of coffee ounces
+     * @param int nSugarPackets: the number of sugar packets
+     * @param int nCreams: the number of creams
+     * @param int nCups: the number of cups
+     */
+    public Cafe(String name, String address, int nFloors, int nCoffeeOunces, int nSugarPackets, int nCreams, int nCups) {
         super(name, address, nFloors); //imports attributes from building
         this.nCoffeeOunces= nCoffeeOunces; //the cafe's number of Coffee Ounces
         this.nSugarPackets = nSugarPackets; //the cafe's number of sugar packets
@@ -16,7 +29,14 @@ public class Cafe extends Building{ //establishes cafe as a child of parent clas
         this.nCups = nCups; //the cafe's number of cups
     }
 
-    private void restock(int nCoffeeOunces, int nSugarPackets, int nCreams, int nCups) { //method to restock any supplies needed to sell a coffee
+    /*
+     * Method to restock any supplies needed to sell a coffee
+     * @param int nCoffeeOunces: ounces to be added to inventory
+     * @param int nSugarPackets: packets to be added to inventory
+     * @param int nCreams: number of creams to be added to inventory
+     * @param int nCups: number of cups to be added to inventory
+     */
+    private void restock(int nCoffeeOunces, int nSugarPackets, int nCreams, int nCups) {
         System.out.println("What supply do you need to restock? (coffee, sugar, creamer, cups)");
         String restockTarget = scanner.nextLine(); //sets scanner's "target"
         if (restockTarget.contains("coffee")) { //if coffee was included in what they ask to restock
@@ -29,43 +49,50 @@ public class Cafe extends Building{ //establishes cafe as a child of parent clas
                 System.out.println("Please input an integer."); //tells the user what's wrong
                 }
          }
-            else if (restockTarget.contains("sugar")) { //if sugar was included in what they ask to restock
-                try { //try is used in case the user doesn't input an int
-                    System.out.println("How many packets of sugar do you want to add to the inventory? (please input an integer)"); //asks for an int
-                    int quantity = scanner.nextInt(); //sets the target of scanner
-                    this.nSugarPackets+=quantity; //new number is old number plus new
-                    System.out.println(this.name + " now has " + this.nSugarPackets + " packet(s) of sugar."); //tells the user the new amount of coffee
-                } catch (InputMismatchException nonint) { //catches nonint
-                    System.out.println("Please input an integer."); //tells the user what's wrong
+        else if (restockTarget.contains("sugar")) { //if sugar was included in what they ask to restock
+            try { //try is used in case the user doesn't input an int
+                System.out.println("How many packets of sugar do you want to add to the inventory? (please input an integer)"); //asks for an int
+                int quantity = scanner.nextInt(); //sets the target of scanner
+                this.nSugarPackets+=quantity; //new number is old number plus new
+                System.out.println(this.name + " now has " + this.nSugarPackets + " packet(s) of sugar."); //tells the user the new amount of coffee
+            } catch (InputMismatchException nonint) { //catches nonint
+                System.out.println("Please input an integer."); //tells the user what's wrong
+                }
+            }
+        else if (restockTarget.contains("creamer")) { //if creamer was included in what they ask to restock
+            try { //try is used in case the user doesn't input an int
+                System.out.println("How many splashes of creamer do you want to add to the inventory? (please input an integer)"); //asks for an int
+                int quantity = scanner.nextInt(); //sets the target of scanner
+                this.nCreams+=quantity; //new number is old number plus new
+                System.out.println(this.name + " now has " + this.nCreams + " splash(es) of coffee."); //tells the user the new amount of coffee
+            } catch (InputMismatchException nonint) { //catches nonint
+                System.out.println("Please input an integer."); //tells the user what's wrong
                     }
-                }
-            else if (restockTarget.contains("creamer")) { //if creamer was included in what they ask to restock
-                try { //try is used in case the user doesn't input an int
-                    System.out.println("How many splashes of creamer do you want to add to the inventory? (please input an integer)"); //asks for an int
-                    int quantity = scanner.nextInt(); //sets the target of scanner
-                    this.nCreams+=quantity; //new number is old number plus new
-                    System.out.println(this.name + " now has " + this.nCreams + " splash(es) of coffee."); //tells the user the new amount of coffee
-                } catch (InputMismatchException nonint) { //catches nonint
-                    System.out.println("Please input an integer."); //tells the user what's wrong
-                        }
-                }
-            else if (restockTarget.contains("cups")) { //if cups were included in what they ask to restock
-                try { //try is used in case the user doesn't input an int
-                    System.out.println("How many new cups do you want to add to the inventory? (please input an integer)"); //asks for an int
-                    int quantity = scanner.nextInt(); //sets the target of scanner
-                    this.nCups+=quantity; //new number is old number plus new
-                    System.out.println(this.name + " now has " + this.nCups + " coffee cup(s)."); //tells the user the new amount of coffee
-                } catch (InputMismatchException nonint) { //catches nonint
-                    System.out.println("Please input an integer."); //tells the user what's wrong
-                        }
-                }
-            else {
-                throw new RuntimeException("Please input coffee, sugar, creamer, or cups as your response."); //throws error if other response is given
+            }
+        else if (restockTarget.contains("cups")) { //if cups were included in what they ask to restock
+            try { //try is used in case the user doesn't input an int
+                System.out.println("How many new cups do you want to add to the inventory? (please input an integer)"); //asks for an int
+                int quantity = scanner.nextInt(); //sets the target of scanner
+                this.nCups+=quantity; //new number is old number plus new
+                System.out.println(this.name + " now has " + this.nCups + " coffee cup(s)."); //tells the user the new amount of coffee
+            } catch (InputMismatchException nonint) { //catches nonint
+                System.out.println("Please input an integer."); //tells the user what's wrong
+                    }
+            }
+        else {
+            throw new RuntimeException("Please input coffee, sugar, creamer, or cups as your response."); //throws error if other response is given
 
         }
     }
 
-    public void sellCoffee(int size, int nSugarPackets, int nCreams) { //method to sell coffee
+    /*
+     * Method to sell coffee, subtracting quantities of inputs from inventory
+     * Calls restock if not enough of one of the attributes is present
+     * @param int size: number of coffee ounces used to make coffee
+     * @param int nSugarPackets: number of sugars in coffee
+     * @param int nCreams: number of creams used in coffee
+     */
+    public void sellCoffee(int size, int nSugarPackets, int nCreams) {
         System.out.println("You are trying to sell a coffee. Checking inventory...");
         while (this.nCoffeeOunces < size || this.nSugarPackets < nSugarPackets || this.nCreams < nCreams || this.nCups < 1) { //if there are fewer supplies than the number needed to make the coffee
             if (this.nCoffeeOunces < size) { //if coffee is less than amount needed
@@ -96,8 +123,10 @@ public class Cafe extends Building{ //establishes cafe as a child of parent clas
         }
     }
 
-    
-    public String toString() { //public adjustment of toString to add extra details to readout of cafe
+    /*
+     * Method to adjust toString inherited from parent class to add text to description that is specific to the cafe class
+     */
+    public String toString() { 
         String desc = super.toString(); //sets the default desc to have the attributes from the parent, but will allow to add more details
         if (this.nCoffeeOunces == 0) { //if there is no coffee, use custom text to share that
             desc+= "\n" + this.name + " is all out of coffee,";
